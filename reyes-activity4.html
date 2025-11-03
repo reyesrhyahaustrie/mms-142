@@ -1,0 +1,222 @@
+<!-- 
+  Reyes, Rhyah Austrie S.
+  2022-07113
+  This HTML file is for Activity 4: Dynamic Product Grid, which uses Tailwind CSS and Vanilla Javascript
+  to render product cards from JSON array through DOM manipulation.
+-->
+
+<!--
+Activity 4: Dynamic rendering of a product grid using Vanilla JavaScript and JSON data. 
+
+Requirements:
+1. JSON Data Integration: Create a JSON array containing at least three product objects. Each object should have the following properties: id, name, description, price, and imageUrl.
+2. Dynamic Rendering Function: Write a JavaScript function that takes a product object as an argument and returns a HTML card element representing the product. The card should include:
+   - An image section displaying the product image.
+   - A title section showing the product name.
+   - A description section with the product description.
+   - A price section formatted in Peso currency style.
+   - An "Add to Cart" button with hover effects.
+3. Data Iteration and Insertion: Use JavaScript to iterate over the JSON array and call the rendering function for each product. Append the resulting card elements to a designated container in the HTML document.
+4. Initialization on Page Load: Ensure that the product grid is rendered automatically when the webpage loads.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Product Grid</title>
+    <!-- Load Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-8 min-h-screen">
+
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center">Featured Products</h1>
+
+        <!-- Target Container for JavaScript Rendering -->
+        <!-- This grid structure will hold the dynamically created product cards -->
+        <div id="product-grid" class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- Cards will be injected here by JavaScript -->
+        </div>
+    </div>
+    <!---------------------------------------------------------------------->
+
+    <!--
+YOU MAY EDIT THIS PART OF THE FILE
+-->
+    <script>
+        // 1. JSON Data Integration (minimum three product objects)
+        // Sunscreen is the main product; two complementary skincare items added.
+        const productsData = [
+            {
+                id: 1,
+                name: "Sun Protect Sunscreen",
+                description: "Lightweight sunscreen with SPF 50 that protects and moisturizes the skin. Safe for daily use and feels non-greasy.",
+                price: 799.00,
+                imageUrl: "https://cdn.discordapp.com/attachments/1432253570643660911/1432324206905004043/sunscreen-product.png?ex=6900a35e&is=68ff51de&hm=7b06f7e3bf723dfd30e6425e5b2953f18c28350c277eec67bbf4d0b2352970e2&"
+            },
+            {
+                id: 2,
+                name: "Hydrating Moisturizer",
+                description: "A gentle, fast-absorbing moisturizer that keeps skin soft and balanced all day. Good as a makeup base.",
+                price: 599.00,
+                imageUrl: "https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&h=1080&w=1920"
+            },
+            {
+                id: 3,
+                name: "Brightening Serum",
+                description: "Light serum with vitamin C to brighten the skin and reduce dark spots. Use daily for a radiant look.",
+                price: 999.00,
+                imageUrl: "https://images.pexels.com/photos/4056543/pexels-photo-4056543.jpeg?auto=compress&cs=tinysrgb&h=1080&w=1920"
+            }
+        ];
+
+        // 2. Dynamic Rendering Function
+        // This creates a complete card element for a single product and returns it.
+        function renderProductCard(product) {
+            // outer wrapper (article)
+            const card = document.createElement('article');
+            card.className = "bg-white rounded-2xl shadow-xl overflow-hidden ring-1 ring-gray-100";
+
+            // image container
+            const imgWrap = document.createElement('div');
+            imgWrap.className = "w-full h-64 sm:h-72 bg-gray-100 overflow-hidden flex items-center justify-center";
+            const img = document.createElement('img');
+            img.src = product.imageUrl;
+            img.alt = product.name;
+            img.className = "w-full h-full object-cover";
+            imgWrap.appendChild(img);
+            card.appendChild(imgWrap);
+
+            // content wrapper
+            const content = document.createElement('div');
+            content.className = "p-6 sm:p-8";
+
+            // title + rating row
+            const titleRow = document.createElement('div');
+            titleRow.className = "flex items-start justify-between";
+
+            const title = document.createElement('h2');
+            title.className = "text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight";
+            title.textContent = product.name;
+
+            const ratingWrap = document.createElement('div');
+            ratingWrap.className = "flex items-center gap-2";
+            const stars = document.createElement('div');
+            stars.className = "flex items-center text-sm text-yellow-500";
+            // simple 4 filled stars + 1 dim star (visual)
+            for (let i = 0; i < 4; i++) {
+                const s = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                s.setAttribute("class", "w-4 h-4 fill-current");
+                s.setAttribute("viewBox", "0 0 20 20");
+                s.innerHTML = '<path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.562-.954L10 0l2.948 5.956 6.562.954-4.755 4.635 1.123 6.545z"/>';
+                stars.appendChild(s);
+            }
+            const sDim = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            sDim.setAttribute("class", "w-4 h-4 text-gray-300");
+            sDim.setAttribute("viewBox", "0 0 20 20");
+            sDim.innerHTML = '<path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.562-.954L10 0l2.948 5.956 6.562.954-4.755 4.635 1.123 6.545z"/>';
+            stars.appendChild(sDim);
+
+            const ratingText = document.createElement('span');
+            ratingText.className = "text-xs text-slate-500";
+            ratingText.textContent = "4.6 (2k)";
+
+            ratingWrap.appendChild(stars);
+            ratingWrap.appendChild(ratingText);
+
+            titleRow.appendChild(title);
+            titleRow.appendChild(ratingWrap);
+            content.appendChild(titleRow);
+
+            // description
+            const desc = document.createElement('p');
+            desc.className = "mt-4 text-slate-600 text-sm sm:text-base";
+            desc.textContent = product.description;
+            content.appendChild(desc);
+
+            // price + button section
+            const priceBlock = document.createElement('div');
+            priceBlock.className = "mt-6 sm:mt-8";
+            const priceRow = document.createElement('div');
+            priceRow.className = "flex items-end justify-between gap-4";
+
+            const priceInfo = document.createElement('div');
+            const priceLabel = document.createElement('p');
+            priceLabel.className = "text-amber-900 text-xs";
+            priceLabel.textContent = "Price";
+            const priceValue = document.createElement('p');
+            priceValue.className = "text-amber-600 font-extrabold text-2xl sm:text-3xl tracking-tight";
+
+            // format price to Philippine Peso (₱)
+            const formatter = new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP' });
+            priceValue.textContent = formatter.format(product.price);
+
+            const taxNote = document.createElement('p');
+            taxNote.className = "text-xs text-slate-400";
+            taxNote.textContent = "Inclusive of all taxes";
+
+            priceInfo.appendChild(priceLabel);
+            priceInfo.appendChild(priceValue);
+            priceInfo.appendChild(taxNote);
+
+            const btnWrap = document.createElement('div');
+            btnWrap.className = "flex-1";
+            const btn = document.createElement('button');
+            btn.className = "w-full inline-flex items-center justify-center gap-3 py-3 px-5 bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white font-semibold rounded-xl shadow-md transition";
+            btn.setAttribute('aria-label', `Add ${product.name} to cart`);
+            btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 6M7 13l-2 7h14l-2-7M9 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z"/></svg> Add to Cart';
+
+            // button click behavior: small feedback and console log
+            btn.addEventListener('click', function () {
+                console.log(`Added to cart: ${product.name} (id: ${product.id})`);
+                btn.textContent = "Added";
+                btn.disabled = true;
+                btn.classList.remove('bg-amber-500', 'hover:bg-amber-600', 'active:bg-amber-700');
+                btn.classList.add('bg-gray-400', 'cursor-not-allowed');
+            });
+
+            btnWrap.appendChild(btn);
+            priceRow.appendChild(priceInfo);
+            priceRow.appendChild(btnWrap);
+            priceBlock.appendChild(priceRow);
+            content.appendChild(priceBlock);
+
+            // meta row
+            const meta = document.createElement('div');
+            meta.className = "mt-4 text-xs text-slate-400 flex items-center justify-between";
+            const ship = document.createElement('span');
+            ship.textContent = "Free shipping over ₱1,500";
+            const stock = document.createElement('span');
+            stock.className = "px-2 py-1 bg-slate-100 rounded-full text-slate-600";
+            stock.textContent = "In stock";
+            meta.appendChild(ship);
+            meta.appendChild(stock);
+            content.appendChild(meta);
+
+            card.appendChild(content);
+            return card;
+        }
+
+        // 3. Data Iteration and Insertion + Initialization on Page Load
+        function loadProducts() {
+            const container = document.getElementById('product-grid');
+            container.innerHTML = ""; // clear container
+            productsData.forEach(product => {
+                const card = renderProductCard(product);
+                const wrapper = document.createElement('div'); // grid child wrapper
+                wrapper.appendChild(card);
+                container.appendChild(wrapper);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', loadProducts);
+    </script>
+
+    <!--
+DO NOT MODIFY THIS PART OF THE FILE
+-->
+</body>
+</html>

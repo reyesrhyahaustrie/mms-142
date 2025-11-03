@@ -1,0 +1,116 @@
+<!doctype html>
+  <!-- 
+    Reyes, Rhyah Austrie S.
+    2022-07113
+    This HTML is a product card for Sunscreen using Tailwind CSS.
+  -->
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sunscreen - Product Card</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Font: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Apply the Poppins Font -->
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+    }
+
+    .card-max {
+      max-width: 860px;
+    }
+
+  </style>
+</head>
+
+<body class="min-h-screen bg-gray-100">
+
+  <!-- Background Image -->
+  <div class="min-h-screen flex items-center justify-center p-6 relative"
+    style="background-image: url('https://cdn.discordapp.com/attachments/1432253570643660911/1432282152518815846/act3-tailwindcss-bg.png?ex=69007c33&is=68ff2ab3&hm=ea74c3831877ea3c7fd17b3bfa1ca4bdd92e345310ddcce32a8fcbcae53abe9b'); background-size: cover; background-position: center;">
+
+    <!-- Product Card -->
+    <article class="card-max bg-white rounded-2xl shadow-xl overflow-hidden ring-1 ring-gray-100">
+
+      <!-- Product Image -->
+      <div class="w-full h-100 md:h-100 lg:h-100 bg-white flex items-center justify-center overflow-hidden">
+        <img
+          src="https://cdn.discordapp.com/attachments/1432253570643660911/1432324206905004043/sunscreen-product.png?ex=6900a35e&is=68ff51de&hm=7b06f7e3bf723dfd30e6425e5b2953f18c28350c277eec67bbf4d0b2352970e2&"
+          alt="Sunscreen product image" class="w-9/10 h-9/10 object-cover" />
+      </div>
+
+      <!-- Product Info -->
+      <div class="p-6 sm:p-8">
+
+        <!-- Product Title & Ratings -->
+        <div class="flex items-start justify-between">
+
+          <!-- Product Title -->
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-amber-900 leading-tight pr-4">
+            Sunscreen
+          </h1>
+
+          <!-- Product Ratings -->
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <div class="flex items-center text-sm text-yellow-500" aria-hidden="true">
+              <!-- Star Icon -->
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                <path
+                  d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.562-.954L10 0l2.948 5.956 6.562.954-4.755 4.635 1.123 6.545z" />
+              </svg>
+            </div>
+            <span class="text-xs text-slate-500">4.6 (2k)</span>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <p class="mt-4 text-slate-600 text-sm sm:text-base">
+          Lightweight with SPF 50 that protects and moisturizes the skin, which is safe for daily use and
+          feels non-greasy.
+        </p>
+
+        <!-- Price and Button Section -->
+        <div class="mt-6 sm:mt-8">
+          <div class="flex items-end justify-between gap-4">
+            <div>
+              <p class="text-amber-900 text-xs">Price</p>
+              <p class="text-amber-600 font-extrabold text-2xl sm:text-3xl tracking-tight">P799.00</p>
+              <p class="text-xs text-slate-400">Inclusive of all taxes</p>
+            </div>
+
+            <!-- Add to Cart Button -->
+            <div class="flex-1">
+              <button
+                class="w-full inline-flex items-center justify-center gap-3 py-3 px-2 bg-amber-500 hover:bg-amber-600 focus-visible:outline-amber-300 text-white font-semibold rounded-xl shadow-md transition"
+                aria-label="Add Sunscreen to cart">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 6M7 13l-2 7h14l-2-7M9 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z" />
+                </svg>
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shipping and Stock Info -->
+        <div class="mt-4 text-xs text-slate-400 flex items-center justify-between">
+          <span>Free shipping over P1500</span>
+          <span class="px-2 py-1 bg-slate-100 rounded-full text-slate-600">In stock</span>
+        </div>
+
+      </div>
+    </article>
+  </div>
+</body>
+
+</html>
