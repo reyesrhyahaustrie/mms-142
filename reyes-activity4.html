@@ -1,11 +1,10 @@
 <!-- 
   Reyes, Rhyah Austrie S.
   2022-07113
-  This HTML file is for Activity 4: Dynamic Product Grid, which uses Tailwind CSS and Vanilla Javascript
-  to render product cards from JSON array through DOM manipulation.
+  This HTML is for Activity 4 - Dynamic Product Grid, which uses Tailwind CSS and Vanilla Javascript to render product cards from a JSON array through DOM manipulation.
 -->
 
-<!--
+<!-- 
 Activity 4: Dynamic rendering of a product grid using Vanilla JavaScript and JSON data. 
 
 Requirements:
@@ -19,12 +18,16 @@ Requirements:
 3. Data Iteration and Insertion: Use JavaScript to iterate over the JSON array and call the rendering function for each product. Append the resulting card elements to a designated container in the HTML document.
 4. Initialization on Page Load: Ensure that the product grid is rendered automatically when the webpage loads.
 -->
+
+<!--
+DO NOT MODIFY THIS PART OF THE FILE
+-->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Product Grid</title>
     <!-- Load Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -48,148 +51,148 @@ YOU MAY EDIT THIS PART OF THE FILE
 -->
     <script>
         // 1. JSON Data Integration (minimum three product objects)
-        // Sunscreen is the main product; two complementary skincare items added.
+        // Sunscreen is the main product and two skincare items were added, such as hydrating moisturizer and brightening serum.
         const productsData = [
             {
                 id: 1,
                 name: "Sun Protect Sunscreen",
                 description: "Lightweight sunscreen with SPF 50 that protects and moisturizes the skin. Safe for daily use and feels non-greasy.",
                 price: 799.00,
-                imageUrl: "https://cdn.discordapp.com/attachments/1432253570643660911/1432324206905004043/sunscreen-product.png?ex=6900a35e&is=68ff51de&hm=7b06f7e3bf723dfd30e6425e5b2953f18c28350c277eec67bbf4d0b2352970e2&"
+                imageUrl: "https://cdn.discordapp.com/attachments/1432253570643660911/1432324206905004043/sunscreen-product.png?ex=6900a35e&is=68ff51de&hm=7b06f7e3bf723dfd30e6425e5b2953f18c28350c277eec67bbf4d0b2352970e2&",
+                ratingText: "4.6 (2k)"
             },
             {
                 id: 2,
                 name: "Hydrating Moisturizer",
-                description: "A gentle, fast-absorbing moisturizer that keeps skin soft and balanced all day. Good as a makeup base.",
+                description: "A gentle cream-based moisturizer that keeps skin soft and balanced all day. Good as a makeup base.",
                 price: 599.00,
-                imageUrl: "https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&h=1080&w=1920"
+                imageUrl: "https://cdn.discordapp.com/attachments/1432253570643660911/1434825285324242974/hydrating_moisturizer-photo.png?ex=6909bcad&is=69086b2d&hm=cf1bfe1e25a2f8c4d28198d5616ee5269d341842337d75a96312ec093fc7281d",
+                ratingText: "4.3 (1.2k)"
             },
             {
                 id: 3,
                 name: "Brightening Serum",
-                description: "Light serum with vitamin C to brighten the skin and reduce dark spots. Use daily for a radiant look.",
-                price: 999.00,
-                imageUrl: "https://images.pexels.com/photos/4056543/pexels-photo-4056543.jpeg?auto=compress&cs=tinysrgb&h=1080&w=1920"
+                description: "Light serum with vitamin C to brighten the skin and reduce dark spots. Use everyday to attain the radiant look.",
+                price: 875.00,
+                imageUrl: "https://cdn.discordapp.com/attachments/1432253570643660911/1434825303137456189/brightening_serum-photo.png?ex=6909bcb2&is=69086b32&hm=4944978a11f60774f07bada12ea6e2fb5cc3e545025e4d1bcf9cc866da94a075",
+                ratingText: "4.5 (900)"
             }
         ];
 
         // 2. Dynamic Rendering Function
-        // This creates a complete card element for a single product and returns it.
+        // This function makes the product card using DOM elements
         function renderProductCard(product) {
-            // outer wrapper (article)
-            const card = document.createElement('article');
+            // card container
+            const card = document.createElement("article");
             card.className = "bg-white rounded-2xl shadow-xl overflow-hidden ring-1 ring-gray-100";
 
-            // image container
-            const imgWrap = document.createElement('div');
-            imgWrap.className = "w-full h-64 sm:h-72 bg-gray-100 overflow-hidden flex items-center justify-center";
-            const img = document.createElement('img');
+            // product image
+            const imgDiv = document.createElement("div");
+            imgDiv.className = "w-full h-75 sm:h-75 bg-gray-100 overflow-hidden flex items-center justify-center";
+            const img = document.createElement("img");
             img.src = product.imageUrl;
             img.alt = product.name;
             img.className = "w-full h-full object-cover";
-            imgWrap.appendChild(img);
-            card.appendChild(imgWrap);
+            imgDiv.appendChild(img);
+            card.appendChild(imgDiv);
 
-            // content wrapper
-            const content = document.createElement('div');
+            // content section
+            const content = document.createElement("div");
             content.className = "p-6 sm:p-8";
 
-            // title + rating row
-            const titleRow = document.createElement('div');
+            // product title and rating
+            const titleRow = document.createElement("div");
             titleRow.className = "flex items-start justify-between";
 
-            const title = document.createElement('h2');
+            const title = document.createElement("h2");
             title.className = "text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight";
             title.textContent = product.name;
 
-            const ratingWrap = document.createElement('div');
-            ratingWrap.className = "flex items-center gap-2";
-            const stars = document.createElement('div');
-            stars.className = "flex items-center text-sm text-yellow-500";
-            // simple 4 filled stars + 1 dim star (visual)
-            for (let i = 0; i < 4; i++) {
-                const s = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                s.setAttribute("class", "w-4 h-4 fill-current");
-                s.setAttribute("viewBox", "0 0 20 20");
-                s.innerHTML = '<path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.562-.954L10 0l2.948 5.956 6.562.954-4.755 4.635 1.123 6.545z"/>';
-                stars.appendChild(s);
-            }
-            const sDim = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            sDim.setAttribute("class", "w-4 h-4 text-gray-300");
-            sDim.setAttribute("viewBox", "0 0 20 20");
-            sDim.innerHTML = '<path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.562-.954L10 0l2.948 5.956 6.562.954-4.755 4.635 1.123 6.545z"/>';
-            stars.appendChild(sDim);
+            // rating section with one filled star
+            const ratingWrap = document.createElement("div");
+            ratingWrap.className = "flex items-center gap-2 flex-shrink-0 whitespace-nowrap";
 
-            const ratingText = document.createElement('span');
+            const star = document.createElement("div");
+            star.className = "flex items-center text-yellow-500";
+            star.innerHTML = `
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20" aria-hidden="true">
+          <path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.562-.954L10 0l2.948 5.956 6.562.954-4.755 4.635 1.123 6.545z"/>
+        </svg>
+      `;
+
+            const ratingText = document.createElement("span");
             ratingText.className = "text-xs text-slate-500";
-            ratingText.textContent = "4.6 (2k)";
+            ratingText.textContent = product.ratingText;
 
-            ratingWrap.appendChild(stars);
+            ratingWrap.appendChild(star);
             ratingWrap.appendChild(ratingText);
-
             titleRow.appendChild(title);
             titleRow.appendChild(ratingWrap);
             content.appendChild(titleRow);
 
-            // description
-            const desc = document.createElement('p');
+            // product description
+            const desc = document.createElement("p");
             desc.className = "mt-4 text-slate-600 text-sm sm:text-base";
             desc.textContent = product.description;
             content.appendChild(desc);
 
-            // price + button section
-            const priceBlock = document.createElement('div');
-            priceBlock.className = "mt-6 sm:mt-8";
-            const priceRow = document.createElement('div');
+            // price and button area
+            const priceArea = document.createElement("div");
+            priceArea.className = "mt-6 sm:mt-8";
+            const priceRow = document.createElement("div");
             priceRow.className = "flex items-end justify-between gap-4";
 
-            const priceInfo = document.createElement('div');
-            const priceLabel = document.createElement('p');
+            const priceInfo = document.createElement("div");
+            const priceLabel = document.createElement("p");
             priceLabel.className = "text-amber-900 text-xs";
             priceLabel.textContent = "Price";
-            const priceValue = document.createElement('p');
+            const priceValue = document.createElement("p");
             priceValue.className = "text-amber-600 font-extrabold text-2xl sm:text-3xl tracking-tight";
 
-            // format price to Philippine Peso (₱)
-            const formatter = new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP' });
-            priceValue.textContent = formatter.format(product.price);
+            // format price in PHP
+            let peso = new Intl.NumberFormat("en-PH", { style: "currency", currency: "PHP" });
+            priceValue.textContent = peso.format(product.price);
 
-            const taxNote = document.createElement('p');
-            taxNote.className = "text-xs text-slate-400";
-            taxNote.textContent = "Inclusive of all taxes";
+            const tax = document.createElement("p");
+            tax.className = "text-xs text-slate-400";
+            tax.textContent = "Inclusive of all taxes";
 
             priceInfo.appendChild(priceLabel);
             priceInfo.appendChild(priceValue);
-            priceInfo.appendChild(taxNote);
+            priceInfo.appendChild(tax);
 
-            const btnWrap = document.createElement('div');
-            btnWrap.className = "flex-1";
-            const btn = document.createElement('button');
+            // Add to Cart button
+            const btnDiv = document.createElement("div");
+            btnDiv.className = "flex-1";
+            const btn = document.createElement("button");
             btn.className = "w-full inline-flex items-center justify-center gap-3 py-3 px-5 bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white font-semibold rounded-xl shadow-md transition";
-            btn.setAttribute('aria-label', `Add ${product.name} to cart`);
-            btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 6M7 13l-2 7h14l-2-7M9 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z"/></svg> Add to Cart';
+            btn.innerHTML = `
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 6M7 13l-2 7h14l-2-7M9 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z"/>
+        </svg> Add to Cart
+      `;
 
-            // button click behavior: small feedback and console log
-            btn.addEventListener('click', function () {
-                console.log(`Added to cart: ${product.name} (id: ${product.id})`);
+            // button click event
+            btn.addEventListener("click", function () {
+                console.log("Added to cart:", product.name);
                 btn.textContent = "Added";
                 btn.disabled = true;
-                btn.classList.remove('bg-amber-500', 'hover:bg-amber-600', 'active:bg-amber-700');
-                btn.classList.add('bg-gray-400', 'cursor-not-allowed');
+                btn.classList.remove("bg-amber-500", "hover:bg-amber-600", "active:bg-amber-700");
+                btn.classList.add("bg-gray-400", "cursor-not-allowed");
             });
 
-            btnWrap.appendChild(btn);
+            btnDiv.appendChild(btn);
             priceRow.appendChild(priceInfo);
-            priceRow.appendChild(btnWrap);
-            priceBlock.appendChild(priceRow);
-            content.appendChild(priceBlock);
+            priceRow.appendChild(btnDiv);
+            priceArea.appendChild(priceRow);
+            content.appendChild(priceArea);
 
-            // meta row
-            const meta = document.createElement('div');
+            // shipping and stock info
+            const meta = document.createElement("div");
             meta.className = "mt-4 text-xs text-slate-400 flex items-center justify-between";
-            const ship = document.createElement('span');
+            const ship = document.createElement("span");
             ship.textContent = "Free shipping over ₱1,500";
-            const stock = document.createElement('span');
+            const stock = document.createElement("span");
             stock.className = "px-2 py-1 bg-slate-100 rounded-full text-slate-600";
             stock.textContent = "In stock";
             meta.appendChild(ship);
@@ -200,19 +203,20 @@ YOU MAY EDIT THIS PART OF THE FILE
             return card;
         }
 
-        // 3. Data Iteration and Insertion + Initialization on Page Load
+        // 3. Initialization on Page Load
+        // This function displays all product cards on the page
         function loadProducts() {
-            const container = document.getElementById('product-grid');
-            container.innerHTML = ""; // clear container
-            productsData.forEach(product => {
-                const card = renderProductCard(product);
-                const wrapper = document.createElement('div'); // grid child wrapper
-                wrapper.appendChild(card);
-                container.appendChild(wrapper);
-            });
+            const container = document.getElementById("product-grid");
+            container.innerHTML = ""; // clear container before adding new items
+
+            for (let i = 0; i < productsData.length; i++) {
+                const card = renderProductCard(productsData[i]);
+                container.appendChild(card);
+            }
         }
 
-        window.addEventListener('DOMContentLoaded', loadProducts);
+        // load products once the page is ready
+        window.addEventListener("DOMContentLoaded", loadProducts);
     </script>
 
     <!--
